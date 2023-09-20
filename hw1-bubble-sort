@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+
+void swap(char* x, char* y){ //swap function 
+    char temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+int main()
+{   
+    int x, y;  //two number for array
+    cout<<"input two number x and y";
+    cin >> x >>y;
+    
+    /*
+    char **array = new char* [x] ; // set up array with new
+    for(int i=0;i<x;i++) array[i] = new char[y];
+    */
+    
+    /*
+    char **array; //set up array with malloc
+    array = (char**) malloc(x*sizeof(char*));
+    for(int i=0;i<x;i++) array[i] = (char*) malloc(y*sizeof(char));
+    */
+    
+    for(int i=0;i<x;i++){ // user input name
+        cout<<i+1<<" array input:"<<endl;
+        cin >>array[i];
+
+    }
+
+    for(int i =x-1;i>0;i--){ // bubble sort work
+        for(int j=0;j<=i-1;j++){
+            if (array[j][0] < array[i][0]){
+                swap(& *array[j],& *array[i]);
+            }
+        }
+    }
+    
+    cout<<"bubble sort ..."<<endl; // print array sort
+    for (int i = 0; i < x; i++) {
+        cout<<i+1<<" => ";
+        for (int j = 0; j < y; j++) {
+            cout <<array[i][j];
+        }
+    cout << endl;
+    }
+   
+    free(array); // relase memory
+    return 0;
+}
