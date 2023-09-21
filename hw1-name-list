@@ -4,27 +4,59 @@
 using namespace std;
 
 int main() {
-    int n;  // 字符串数量
-    cout << "输入字符串的数量：";
-    cin >> n;
+    int x;  // number for array
+    cout << "input number x：";
+    cin >> x;
 
-    cin.ignore(); // 忽略前面的换行符
+    cin.ignore(); // pass the newline
 
-    string *strings = new string[n]; // 用于存储字符串的数组
+    string *strings = new string[x]; // set up array with new
 
-    // 输入字符串
-    for (int i = 0; i < n; i++) {
-        cout << "输入字符串 " << i + 1 << "：";
-        getline(cin, strings[i]);
+    // input array
+    for (int i = 0; i < x; i++) {
+        cout << "input array " << i + 1 << "：";
+        getline(cin, strings[i]); // that 'space' can input
     }
 
-    // 计算并输出每个字符串的长度
-    cout << "每个字符串的长度：" << endl;
-    for (int i = 0; i < n; i++) {
-        cout << "字符串 " << i + 1 << " 长度：" << strings[i].length() << endl;
+    // count array length
+    int max=0, max_f=0, n;
+    cout << "array length:" << endl;
+    for (int i = 0; i < x; i++) {
+        n = strings[i].length();
+        if (max < n){
+            max = n;
+            max_f = 0;
+            for(int j=0;j<max;j++){
+                if(strings[i][j] != 32){
+                    max_f++;
+                    
+                }else{ 
+                    break;
+                }
+            }
+            cout<<i<<"array "<<max_f<<endl;
+        }
     }
-
-    // 释放内存
+    
+    //print array
+    cout<<"print list..."<<endl;
+    int array_f =0;
+    for (int i = 0; i < x; i++) {
+        n = strings[i].length();
+            array_f = 0;
+            for(int j=0;j<max;j++){
+                if(strings[i][j] != 32){
+                    array_f++;
+                }else{ 
+                    break;
+                }
+            }
+            for(int j=0;j<max_f-array_f;j++) cout<<" ";
+            for(int j=0;j<n;j++) cout<<strings[i][j];
+            cout<<endl;
+        }
+    
+    // free memory
     delete[] strings;
 
     return 0;
