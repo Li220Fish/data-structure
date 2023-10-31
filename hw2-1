@@ -1,0 +1,86 @@
+/*#include <iostream>
+
+using namespace std;
+
+
+
+class Complex {
+    public: 
+        Complex (double r, double i) : real(r), image(i) {} // 建構初始值實數,虛數
+        Complex operator+ (Complex &other); // 加法
+        Complex operator* (Complex &other); // 乘法
+        Complex operator<< (Complex &other); // output
+        Complex operator>> (Complex &other); // input
+    private:
+        double real , image;
+};
+
+Complex Complex::operator+(Complex &other){
+    return Complex(real + other.real , image + other.image);
+}
+
+Complex Complex::operator<<(Complex &other){
+    cout<<real<<"+"<<image<<"i"<<endl;
+}
+
+
+int main(){
+    Complex a = Complex( 1.2, 3.4 );
+    Complex b = Complex( 1.2, 3.4 );
+    Complex c = Complex( 0.0, 0.0 );
+    c = a+b;
+    
+    
+    return 0;
+}*/
+
+#include <iostream>
+
+class Complex {
+public:
+    Complex(double real = 0, double imag = 0) : real_(real), imag_(imag) {}
+
+    Complex operator+(const Complex& other) const {
+        return Complex(real_ + other.real_, imag_ + other.imag_);
+    }
+
+    Complex operator*(const Complex& other) const {
+        // (a+bi) * (c+di) = (ac - bd) + (ad + bc)i
+        double new_real = real_ * other.real_ - imag_ * other.imag_;
+        double new_imag = real_ * other.imag_ + imag_ * other.real_;
+        return Complex(new_real, new_imag);
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Complex& complex) {
+        os << complex.real_ << " + " << complex.imag_ << "i";
+        return os;
+    }
+
+    friend std::istream& operator>>(std::istream& is, Complex& complex) {
+        std::cout << "Enter real part: ";
+        is >> complex.real_;
+        std::cout << "Enter imaginary part: ";
+        is >> complex.imag_;
+        return is;
+    }
+
+private:
+    double real_;
+    double imag_;
+};
+
+int main() {
+    Complex a, b, result;
+    std::cout << "Enter the first complex number:" << std::endl;
+    std::cin >> a;
+    std::cout << "Enter the second complex number:" << std::endl;
+    std::cin >> b;
+
+    result = a + b;
+    std::cout << "Sum: " << result << std::endl;
+
+    result = a * b;
+    std::cout << "Product: " << result << std::endl;
+
+    return 0;
+}
