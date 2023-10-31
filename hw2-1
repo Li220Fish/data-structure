@@ -1,16 +1,14 @@
-/*#include <iostream>
+#include <iostream>
 
 using namespace std;
 
-
-
 class Complex {
     public: 
-        Complex (double r, double i) : real(r), image(i) {} // 建構初始值實數,虛數
+        Complex (int r, int i) : real(r), image(i) {} // 建構初始值實數,虛數
         Complex operator+ (Complex &other); // 加法
         Complex operator* (Complex &other); // 乘法
-        Complex operator<< (Complex &other); // output
-        Complex operator>> (Complex &other); // input
+        friend ostream& operator<< (ostream& os, Complex& complex); // output
+        friend istream& operator>> (istream& is, Complex& complex); // input
     private:
         double real , image;
 };
@@ -19,68 +17,45 @@ Complex Complex::operator+(Complex &other){
     return Complex(real + other.real , image + other.image);
 }
 
-Complex Complex::operator<<(Complex &other){
-    cout<<real<<"+"<<image<<"i"<<endl;
+Complex Complex::operator*(Complex &other){
+    //(a+bi)*(c+di) = (a*c-b*d )+ (a*di + c*bi)
+    return Complex(real * other.real - image * other.image , real * other.image + image * other.real);
 }
 
+ostream &operator<<(ostream& os, Complex& complex){ //os's output 
+    os<<complex.real<<"+"<<complex.image<<"i"<<endl;
+    return os;
+}
+
+istream &operator>>(istream& is, Complex& complex){ // os's input
+
+    cout <<"please input a Complex => real image"<<endl;
+    cin >> complex.real;
+    cin >> complex.image; 
+    return is;
+}
 
 int main(){
-    Complex a = Complex( 1.2, 3.4 );
-    Complex b = Complex( 1.2, 3.4 );
-    Complex c = Complex( 0.0, 0.0 );
-    c = a+b;
+    Complex frist_type_0 = Complex(0 , 0); 
+    Complex frist_type_1 = Complex(3 , 2);
+    Complex add_sum = Complex(0 , 0);
+    Complex mul_sum = Complex(0 , 0);
+    
+    Complex user_input_0 = Complex(0 , 0);
+    Complex user_input_1 = Complex(0 , 0);
     
     
-    return 0;
-}*/
-
-#include <iostream>
-
-class Complex {
-public:
-    Complex(double real = 0, double imag = 0) : real_(real), imag_(imag) {}
-
-    Complex operator+(const Complex& other) const {
-        return Complex(real_ + other.real_, imag_ + other.imag_);
-    }
-
-    Complex operator*(const Complex& other) const {
-        // (a+bi) * (c+di) = (ac - bd) + (ad + bc)i
-        double new_real = real_ * other.real_ - imag_ * other.imag_;
-        double new_imag = real_ * other.imag_ + imag_ * other.real_;
-        return Complex(new_real, new_imag);
-    }
-
-    friend std::ostream& operator<<(std::ostream& os, const Complex& complex) {
-        os << complex.real_ << " + " << complex.imag_ << "i";
-        return os;
-    }
-
-    friend std::istream& operator>>(std::istream& is, Complex& complex) {
-        std::cout << "Enter real part: ";
-        is >> complex.real_;
-        std::cout << "Enter imaginary part: ";
-        is >> complex.imag_;
-        return is;
-    }
-
-private:
-    double real_;
-    double imag_;
-};
-
-int main() {
-    Complex a, b, result;
-    std::cout << "Enter the first complex number:" << std::endl;
-    std::cin >> a;
-    std::cout << "Enter the second complex number:" << std::endl;
-    std::cin >> b;
-
-    result = a + b;
-    std::cout << "Sum: " << result << std::endl;
-
-    result = a * b;
-    std::cout << "Product: " << result << std::endl;
-
+    cout << "frist complex => "<< frist_type_0 << "second complex => "<< frist_type_1 <<endl;
+    
+    cout <<"third ";
+    cin>> user_input_0;
+    cout <<"fourth ";
+    cin>> user_input_1;
+    
+    add_sum = frist_type_0 + frist_type_1 + user_input_0 + user_input_1;
+    mul_sum = frist_type_0 * frist_type_1 * user_input_0 * user_input_1;
+    cout << "complex add sum => "<<add_sum;
+    cout << "complex add mul => "<<mul_sum;
+    
     return 0;
 }
