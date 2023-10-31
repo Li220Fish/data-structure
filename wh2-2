@@ -1,0 +1,40 @@
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+class String{ //String class
+    public:
+        String(string s): input_s(s){} 
+        String Frequency();
+    private:
+    
+        string input_s;
+};
+
+String String::Frequency(){ //計算出現次數
+    string output;
+    int ascii[128];
+    for (int i=0;i<128;i++) ascii[i] =0;
+    
+    for(int i=0;i<input_s.length();i++){
+        ascii[int(input_s[i])] += 1;
+    }
+    for(int i=0;i<128;i++){
+        if (ascii[i] != 0) cout<<char(i)<<" => "<<ascii[i]<<endl;
+    }
+    
+    return output;
+};
+
+int main(){
+    
+    string user_input;
+    
+    getline(cin, user_input); // that 'space' can input
+    
+    String input_list = String(user_input);
+    input_list.Frequency();
+    
+    return 0;
+}
