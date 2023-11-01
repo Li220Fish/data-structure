@@ -23,7 +23,8 @@ Complex Complex::operator*(Complex &other){
 }
 
 ostream &operator<<(ostream& os, Complex& complex){ //os's output 
-    os<<complex.real<<"+"<<complex.image<<"i"<<endl;
+    if(complex.image <0) os<<complex.real<<complex.image<<"i"<<endl;
+    else os<<complex.real<<"+"<<complex.image<<"i"<<endl;
     return os;
 }
 
