@@ -42,13 +42,48 @@ void show(struct node* Node){ // show poly
     }
 }
 
+void remove_same(){
+    NULL;
+}
+
+void mul(node* poly1, node* poly2, node* poly){
+    node *ptr1 ,*ptr2;
+    ptr1 = poly1;
+    
+    ptr2 = poly2;
+    //show(poly2);
+    cout<<endl;
+    while (ptr1 != NULL){
+        while (ptr2 != NULL){
+            int sum_coef , sum_exp;
+            
+            sum_coef = ptr1 -> coef_ * ptr2 -> coef_; //係數相乘
+            sum_exp = ptr1 -> exp_ + ptr2 -> exp_ ; // 指數相加
+            add_poly(sum_coef, sum_exp, &poly); //指給新poly
+            
+            ptr2 = ptr2 -> next;
+        }
+        
+        ptr2 = poly2;
+        ptr1 = ptr1 -> next;
+    }
+    //removeDuplicates(poly);
+    //show(poly);
+    cout<<endl;
+    
+}
+
+
 int main()
 {
     struct node *poly1 = NULL , *poly2 = NULL , *poly = NULL ;
-    add_poly(5,2, &poly1);
-    add_poly(4,1, &poly1);
-    add_poly(2,0, &poly1);
+    add_poly(2,2, &poly1);
+    add_poly(3,1, &poly1);
     
-    show(poly1);
+    add_poly(7,1, &poly2);
+    add_poly(3,0, &poly2);
+
+    mul(poly1,poly2,poly);
+
     return 0;
 }
