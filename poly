@@ -81,15 +81,16 @@ void mul(node* poly1, node* poly2, node* poly){
             sum_coef = ptr1 -> coef_ * ptr2 -> coef_; //係數相乘
             sum_exp = ptr1 -> exp_ + ptr2 -> exp_ ; // 指數相加
             
-            add_poly(sum_coef, sum_exp, &poly); //指給新poly
             
+            add_poly(sum_coef, sum_exp, &poly); //指給新poly
             ptr2 = ptr2 -> next;
             times ++;
-            //cout <<times<<endl;
+            
         }
         
         ptr2 = poly2;
         ptr1 = ptr1 -> next;
+        
     }
     remove_same(poly);
     //show(poly);
@@ -104,12 +105,13 @@ int main()
     struct node *poly1 = NULL , *poly2 = NULL , *poly = NULL ;
     int s1 = 0, s2 = 0, max = 1000 ,x=0;
     int a[max], b[max];
-    int target1 = 10 , target2 = 100;
+    int target1 = 3 , target2 = 1;
+    /*
     for (int i=0;i<max;i++){
         a[i] = 0;
         b[i] = 0;
     }
-    while(s1<target1){
+    while(s1<target1-1){
         x = rand()%max;
         if(a[x] == 0){
             a[x] = 1;
@@ -119,8 +121,7 @@ int main()
     
     for(int i=max;i>-1;i--){
         if(a[i]!=0){
-            cout<<i<<" ";
-            add_poly(i,i, &poly1);
+            add_poly(1,i, &poly1);
         }
     }
     
@@ -134,12 +135,19 @@ int main()
     
     for(int i=max;i>-1;i--){
         if(b[i]!=0){
-            add_poly(i,i, &poly2);
+            add_poly(1,i, &poly2);
         }
     }    
-
+    */
+    
+    for(int i=target1; i>0;i--) add_poly(i,i,&poly1);
+    for(int i=target1; i>0;i--) add_poly(i,i,&poly2);
+    show(poly1);
+    cout<<endl;
+    show(poly2);
+    cout<<endl;
 
     mul(poly1,poly2,poly);
-    
+    cout <<times<<endl;
     return 0;
 }
